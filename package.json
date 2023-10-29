@@ -17,6 +17,7 @@
     "next": "14.0.0",
     "nodemailer": "^6.9.7",
     "notyf": "^3.10.0",
+    "puppeteer-core": "^21.4.1",
     "react": "^18",
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",

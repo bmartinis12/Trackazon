@@ -1,6 +1,7 @@
 "use client"
 
 import { scrapeAndStoreProduct } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -25,6 +26,8 @@ const SearchBar = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
+    const router = useRouter();
+
     const notify = (text: string) => toast.error(text, {
         position: "bottom-right",
         autoClose: 3000,
@@ -42,22 +45,27 @@ const SearchBar = () => {
 
         if (!isValidLink) {
             setIsError(true);
-            notify('Please enter a valide Amazon link')
+            notify('Please enter a valid Amazon link')
             return;
         };
+
+        let res;
 
         try {
             setIsLoading(true);
 
             const product = await scrapeAndStoreProduct(searchPrompt);
+            res = product;
         } catch (error) {
             setIsError(true);
             notify('An error has occured, please try again later')
             console.log(error);
         } finally {
             setSearchPromt('');
-            console.log('finished')
             setIsLoading(false);
+            if (res) {
+                router.push(res)
+            }
         }
     }
     return (

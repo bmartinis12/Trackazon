@@ -28,7 +28,7 @@ export async function scrapedAmazonProduct(url: string) {
         const title = $('#productTitle').text().trim();
 
         const currentPrice = extractPrice(
-            $('$.priceToPay span.a-price-whole'),
+            $('.priceToPay span.a-price-whole'),
             $('a.size.base.a-color-price'),
             $('.a-button-selected .a-color-base'),
             $('span.a-price-fraction')
@@ -36,11 +36,11 @@ export async function scrapedAmazonProduct(url: string) {
 
         const originalPrice = extractPrice(
             $('#priceblock_ourprice'),
-            $('a-price.a-text-price span.a-offscreen'),
+            $('span.a-price.a-text-price span.a-offscreen'),
             $('#listPrice'),
             $('#priceblock_dealprice'),
             $('.a-size-base.a-color-price')
-        )
+        );
 
         const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, '');
 
@@ -53,6 +53,10 @@ export async function scrapedAmazonProduct(url: string) {
 
         const description = extractDescription($);
 
+        const numberOfReviews = $('[data-hook=total-review-count]').text().trim().replace(/[^0-9,]/g, '');
+
+        const starRating = $('[data-hook=rating-out-of-text]').text().split(' ')[0];
+
         const data = {
             url,
             currency: currency || '$',
@@ -62,9 +66,8 @@ export async function scrapedAmazonProduct(url: string) {
             originalPrice: Number(originalPrice) || Number(currentPrice),
             priceHistory: [],
             discountRate: Number(discountRate),
-            category: 'category',
-            reviewsCount: 100,
-            stars: 4.5,
+            reviewsCount: numberOfReviews || 'N/A',
+            stars: starRating || 'N/A',
             isOutOfStock: outOfStock,
             description,
             lowestPrice: Number(currentPrice) || Number(originalPrice),

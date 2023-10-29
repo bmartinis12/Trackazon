@@ -4,7 +4,7 @@ import ProductCard from "@/components/ProductCard";
 import { getProductById, getSimilarProducts } from "@/lib/actions"
 import { formatNumber } from "@/lib/utils";
 import { Product } from "@/types";
-import { Bookmark, Heart, MessageCircle, Share, ShoppingBag, Star } from "lucide-react";
+import { ArrowRight, MessageCircle, ShoppingBag, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -30,19 +30,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                     <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
                         <div className="flex flex-col gap-3">
                             <p className="text[28px] text-secondary font-semibold">{product.title}</p>
-                            <Link href={product.url} target="_blank" className="text-base text-black opacity-50">Visit Product</Link>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="product-hearts">
-                                <Heart className="w-[20px] h-[20px] text-[#D46F77]" />
-                                <p className="text-base font-semibold text-[#D46F77]">{product.reviewsCount}</p>
-                            </div>
-                            <div className="p-2 bg-white-200 rounded-10">
-                                <Bookmark className="w-[20px] h-[20px]" />
-                            </div>
-                            <div className="p-2 bg-white-200 rounded-10">
-                                <Share className="w-[20px] h-[20px]" />
-                            </div>
+                            <Link href={product.url} target="_blank" className="flex items-center text-base text-black opacity-60">Visit Product <ArrowRight className="w-[18px] h-[18px] ml-1.5" /></Link>
                         </div>
                     </div>
                     <div className="product-info">
@@ -54,14 +42,14 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                             <div className="flex gap-3">
                                 <div className="product-stars">
                                     <Star className="w-[16px] h-[16px]" />
-                                    <p className="text-sm text-primary-orange font-semibold">{product.stars || '25'}</p>
+                                    <p className="text-sm text-primary-orange font-semibold">{product.stars || 'N/A'}</p>
                                 </div>
                                 <div className="product-reviews">
                                     <MessageCircle className="w-[16px] h-[16px]" />
                                     <p className="text-sm text-secondary font-semibold">{product.reviewsCount} Reviews</p>
                                 </div>
                             </div>
-                            <p className="text-sm text-black opacity-50"><span className="text-primary-green font-semibold">93%</span> of buyers have recommened this.</p>
+                            <p className="text-sm text-black opacity-50"><span className="text-primary-green font-semibold">{Math.floor((product.stars / 5) * 100)}%</span> of buyers have recommened this.</p>
                         </div>
                     </div>
                     <div className="my-7 flex flex-col gap-5">
@@ -84,7 +72,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 </div>
                 <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
                     <ShoppingBag className="w-[22px] h-[22px]" />
-                    <Link href='/' className="text-base text-white">Buy Now</Link>
+                    <Link href={product.url} target="_blank" className="text-base text-white">Buy Now</Link>
                 </button>
             </div>
             {similarProducts && similarProducts?.length > 0 ? (

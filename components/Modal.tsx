@@ -3,7 +3,7 @@
 import { FormEvent, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
-import { Mail, X } from "lucide-react";
+import { Info, Mail, X } from "lucide-react";
 import { addUserEmailToProduct } from "@/lib/actions";
 
 interface Props {
@@ -49,7 +49,7 @@ const Modal = ({ productId }: Props) => {
                                         <X className="w-[24px] h-[24px] cursor-pointer" onClick={closeModal} />
                                     </div>
                                     <h4 className="dialog-head_text">Stay updated with product pricing alerts right in your inbox!</h4>
-                                    <p className="text-sm text-gray-200 mt-2">Never miss a bargain again with our timely alerts!</p>
+                                    <p className="text-sm text-gray-600 mt-2">Never miss a bargain again with our timely alerts!</p>
                                 </div>
                                 <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
                                     <label htmlFor="email" className="text-sm font-medium text-gray-700">Email address</label>
@@ -60,6 +60,10 @@ const Modal = ({ productId }: Props) => {
                                     <button type="submit" className="dialog-btn" disabled={isSubmitting || email === ''}>
                                         {isSubmitting ? 'Submitting...' : 'Track'}
                                     </button>
+                                    <div className="mt-4 flex justify-center items-center">
+                                        <Info className="h-[16px] w-[16px] mr-1.5" />
+                                        <p className="text-xs sm:text-sm text-gray-600">Make sure to check your spam!</p>
+                                    </div>
                                 </form>
                             </div>
                         </Transition.Child>
