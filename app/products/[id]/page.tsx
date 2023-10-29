@@ -67,7 +67,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                 <div className="flex flex-col gap-5">
                     <h3 className="text-2xl text-secondary font-bold">Product Description</h3>
                     <div className="flex flex-col gap-4">
-                        {product?.description.split('\n')}
+                        {product?.description.split('\n').slice(0, 25)}
                     </div>
                 </div>
                 <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
@@ -78,7 +78,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             {similarProducts && similarProducts?.length > 0 ? (
                 <div className="py-14 flex flex-col gap-2 w-full">
                     <p className="section-text">Similar Products</p>
-                    <div className="flex flex-wrap gap-10 mt-7 w-full">
+                    <div className="flex flex-wrap gap-10 mt-7 w-[90v] sm:w-full">
                         {similarProducts.map((product) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
