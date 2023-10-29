@@ -49,7 +49,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                                     <p className="text-sm text-secondary font-semibold">{product.reviewsCount} Reviews</p>
                                 </div>
                             </div>
-                            <p className="text-sm text-black opacity-50"><span className="text-primary-green font-semibold">{Math.floor((product.stars / 5) * 100)}%</span> of buyers have recommened this.</p>
+                            <p className="text-sm text-black opacity-50"><span className="text-primary-green font-semibold">{Math.floor((Number(product.stars) / 5) * 100)}%</span> of buyers have recommened this.</p>
                         </div>
                     </div>
                     <div className="my-7 flex flex-col gap-5">
